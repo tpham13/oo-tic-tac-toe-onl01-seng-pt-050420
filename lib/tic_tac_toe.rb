@@ -76,6 +76,7 @@ class TicTacToe
     turn_count % 2 == 0 ? "X" : "O"
   end 
 
+
   def won? 
    WIN_COMBINATIONS.find {|combo| 
     combo.all? {|i| @board [i]=="X"} ||
@@ -83,21 +84,46 @@ class TicTacToe
     }
   end 
   
-  def full? 
-    @board.all? {|character| character == "X" || character == "O"} 
-  end 
-  
+  def full?
+    @board.all?{|square| square != " " }
+  end
+
   def draw?
-    full? && !won? 
-  end 
-  
+    full? && !won?
+  end
+
   def over?
-    full? || won?
-  end 
+    won? || draw?
+  end
+  
+  #def full? 
+    #@board.all? {|character| character == "X" || character == "O"} 
+  #end 
+  
+  #def draw?
+    #full? && !won? 
+  #end 
+  
+  #def over?
+    #draw? || won?
+  #end 
   
   def winner
     if combo =  won?
       @board[combo[0]]
     end 
-  end 
+  end
+  
+  def play
+    while over? == false
+      turn
+    end
+    if won?
+      puts "Congratulations #{winner}!"
+     elsif draw?
+       puts "Cat's Game!"
+    end
+  end
+
+  
 end 
